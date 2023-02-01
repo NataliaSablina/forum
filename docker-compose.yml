@@ -1,0 +1,21 @@
+version: "3.10"
+
+services:
+  forum:
+    build: .
+    entrypoint: /usr/src/forum/entrypoint.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - dbdata:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+
+volumes:
+  dbdata:
